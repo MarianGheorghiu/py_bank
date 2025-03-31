@@ -1,0 +1,28 @@
+# Byte-compiled / compiled Python files
+__pycache__/
+__pycache__
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+
+# Editor & OS-specific files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Logs & Debugging files
+logs/
+*.log
+
+# Database & Data files
+bank_data/accounts.json
+bank_data/*.db
+
+# Python-specific ignore
+*.egg-info/
+*.egg
+*.pyo
