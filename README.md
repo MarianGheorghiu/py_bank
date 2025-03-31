@@ -26,10 +26,8 @@ This is a **pure CLI app**, so no GUI will be involved, and everything will happ
    ```bash
    git clone https://github.com/yourusername/cli-banking-app.git
 
-2. cd cli-banking-app
+2. cd py_bank
 
-3. cd py_bank
+3. python3 main.py
 
-4. python3 main.py
-
-I will make a script to just use a start.sh, but for now it is what it is.
+**I will make a script to just use a start.sh, but for now it is what it is.**
