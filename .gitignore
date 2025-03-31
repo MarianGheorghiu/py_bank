@@ -1,6 +1,5 @@
 # Byte-compiled / compiled Python files
 __pycache__/
-__pycache__
 *.py[cod]
 *$py.class
 
@@ -26,3 +25,6 @@ bank_data/*.db
 *.egg-info/
 *.egg
 *.pyo
+
+# Git-specific
+.gitignore
