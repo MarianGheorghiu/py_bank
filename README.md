@@ -24,7 +24,7 @@ This is a **pure CLI app**, so no GUI will be involved, and everything will happ
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/cli-banking-app.git
+   git clone https://github.com/MarianGheorghiu/py_bank.git
 
 2. cd py_bank
 
