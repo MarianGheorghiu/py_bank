@@ -2,8 +2,10 @@
     {
         "first_name": "John",
         "last_name": "Doe",
-        "account_number": "123456789",
-        "account_id": "JD123",
-        "balance": 1000.0
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "account_number": "fea9ddf2-070c-42e5-a785-b78a21c6487e",
+        "account_id": "2813",
+        "balance": 0,
+        "account_type": "EUR"
     }
 ]

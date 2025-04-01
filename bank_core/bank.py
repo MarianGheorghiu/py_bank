@@ -17,18 +17,27 @@ class Bank:
         with open(self.accounts_file, "w") as f:
             json.dump(self.accounts, f, indent=4)
     
-    def create_account(self, first_name, last_name, account_number, account_id, balance=0):
+    def create_account(self, first_name, last_name, password, account_number, 
+                       account_id, balance, account_type):
         # parola pula, vezi sa folosesti BankAccount, nu nenorocirea asta de obiect
         new_account = {
             "first_name": first_name,
             "last_name": last_name,
+            "password": password,
             "account_number": account_number,
             "account_id": account_id,
-            "balance": balance
+            "balance": balance,
+            "account_type": account_type
         }
         self.accounts.append(new_account)
         self.save_accounts()
         return new_account
+    
+    def get_account_by_id(self, id):
+        for account in self.accounts:
+            if account['account_id'] == id:
+                return account
+        return False
     
     # unele merg direct in bank_account sau vedem poate facem totul aici
     def find_account(self):
