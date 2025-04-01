@@ -4,6 +4,10 @@ def start_cli(bank):
         print("\n2. Exit")
 
         choice = input("Select an option: ")
+        
+        # parola pula
+        # cauta sa nu mai apara creaza cont dupa ce ai creat
+        # logare dupa
 
         if choice == '1':
             first_name = input("First Name: ")

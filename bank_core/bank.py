@@ -18,6 +18,7 @@ class Bank:
             json.dump(self.accounts, f, indent=4)
     
     def create_account(self, first_name, last_name, account_number, account_id, balance=0):
+        # parola pula, vezi sa folosesti BankAccount, nu nenorocirea asta de obiect
         new_account = {
             "first_name": first_name,
             "last_name": last_name,
@@ -28,4 +29,20 @@ class Bank:
         self.accounts.append(new_account)
         self.save_accounts()
         return new_account
+    
+    # unele merg direct in bank_account sau vedem poate facem totul aici
+    def find_account(self):
+        pass
+    
+    def close_account(self):
+        pass
+    
+    def add_friend(self):
+        pass
+    
+    def remove_friend(self):
+        pass
+    
+    def apply_loan(self):
+        pass
         
