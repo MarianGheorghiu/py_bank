@@ -1,9 +1,9 @@
 import uuid
 import datetime
-from utils import hash_password, check_password, show_account_type, convert_to_decimal
+from utils import hash_password, check_password
 
 # Setam EURO by default
-account_type = ['EUR']
+account_type = 'EUR'
 
 def start_cli(bank):
     logged_in = False
@@ -50,10 +50,7 @@ def start_cli(bank):
                 print(f"Password saved.")
                 print(f"Your account ID: {account_id}")
                 print(f"Initial balance: {balance}")
-                if len(account_type) == 1:
-                    print(f"Account type: {account_type[0]}")
-                else:
-                    show_account_type(account_type)
+                print(f"Account type: {account_type}")
                 print(f"Creation date: {creation_date}")
                 
                 # Autentificare automată după creare cont
@@ -113,7 +110,9 @@ def manage_account(current_user, bank):
             print("\nManage Account:")
             print("1. Show your current account")
             print("2. Add new currency")
-            print("3. Go back")
+            print("3. Switch currency")
+            print("4. Show currencies")
+            print("0. Go back")
             
             account_choice = input("Select an option: ")
             
@@ -125,33 +124,93 @@ def manage_account(current_user, bank):
                 print(f"Account types: {current_user['account_type']}")
                 
             elif account_choice == '2':
-                print("\nSelect currency for new account:")
-                print("1. USD")
-                print("2. GBP")
-                print("3. YEN")
-                
-                currency_choice = input("Select currency: ")
-                
-                if currency_choice in ['1', '2', '3']:
-                    currency_map = {'1': 'USD', '2': 'GBP', '3': 'YEN'}
-                    selected_currency = currency_map[currency_choice]
-                    currency_account_number = str(uuid.uuid4().int)[:4]
-                    creation_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    result = bank.add_new_currency_account(current_user['account_id'], 
-                                                  selected_currency,
-                                                  currency_account_number,
-                                                  float(0),
-                                                  creation_date)
-                    
-                    if result:
-                        # Here you would add code to create a new account
-                        print(f"New {selected_currency} currency added!")
-                else:
-                    print("Invalid currency choice.")
-                    
+                add_new_currency(current_user, bank)    
             elif account_choice == '3':
-                break  # Return to the main menu
-                
-                
+                switch_currency_account(current_user, bank)
+            elif account_choice == '4':
+                display_user_currency_accounts(current_user)
+            elif account_choice == '0':
+                break  # Return to the main menu 
             else:
                 print("Invalid choice. Please try again.")
+             
+def switch_currency_account(current_user, bank):
+    while True:
+        current_currency = current_user["account_type"]
+        print(f"\nYour currency is in {current_currency}. Switch to:")
+                
+        # Create a list of available currencies excluding the current one
+        available_currencies = ["USD", "GBP", "YEN", "EUR"]
+        
+        # Filter out currencies the user doesn't have
+        if "currency_accounts" in current_user:
+            available_currencies = [curr for curr in current_user["currency_accounts"] 
+                                    if curr != current_currency]
+        
+        # Display available currencies as menu options
+        if not available_currencies:
+            print("You don't have any other currency accounts to switch to.")
+            return
+        
+        # Display numbered menu options for each available currency
+        for i, currency in enumerate(available_currencies, 1):
+            print(f"{i}. {currency}")
+            
+        print("0. Go back")
+        
+        # Get user choice
+        choice = input("Select an option: ")
+        
+        if choice == '0':
+            break  # Return to the previous menu
+        
+        try:
+            choice_index = int(choice) - 1
+            if 0 <= choice_index < len(available_currencies):
+                selected_currency = available_currencies[choice_index]
+                # Add code here to actually switch the currency
+                bank.switch_currency(selected_currency, current_user)
+                current_user["account_type"] = selected_currency
+                print(f"Successfully switched to {selected_currency}!")
+                break
+            else:
+                print("Invalid option. Please try again.")
+        except ValueError:
+            print("Please enter a number.")
+                
+def add_new_currency(current_user, bank):
+    print("\nSelect currency for new account:")
+    print("1. USD")
+    print("2. GBP")
+    print("3. YEN")
+    print("0. Go back")
+        
+    currency_choice = input("Select currency: ")
+    
+    if currency_choice == '0':
+        return
+        
+    if currency_choice in ['1', '2', '3']:
+        currency_map = {'1': 'USD', '2': 'GBP', '3': 'YEN'}
+        # generate currency account data
+        selected_currency = currency_map[currency_choice]
+        currency_account_number = str(uuid.uuid4().int)[:4]
+        creation_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        #  add full data to new currency account
+        result = bank.add_new_currency_account(current_user['account_id'], 
+                                        selected_currency,
+                                        currency_account_number,
+                                        float(0),
+                                        creation_date)
+            
+        if result:
+            # Here you would add code to create a new account
+            print(f"New {selected_currency} currency added!")
+        else:
+            print("Invalid currency choice.")
+            
+def display_user_currency_accounts(current_user):
+    print(" ")
+    print("Your currency accounts:")
+    for i, currency in enumerate(current_user["currency_accounts"], 1):
+        print(f"{i}. {currency}")

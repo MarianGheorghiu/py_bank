@@ -58,9 +58,6 @@ class Bank:
             print("You already have this currency!")
             return False
         
-        # Add the new currency to account_types
-        user_account["account_type"].append(selected_currency)
-        
         if "currency_accounts" not in user_account:
             user_account["currency_accounts"] = {}
             
@@ -71,6 +68,11 @@ class Bank:
         
         self.save_accounts()
         print("Success. New currency added." )
+        return True
+    
+    def switch_currency(self, selected_currency, user_account):
+        user_account["account_type"] = selected_currency
+        self.save_accounts()
         return True
         
     
