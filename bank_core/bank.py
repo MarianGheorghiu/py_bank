@@ -18,8 +18,7 @@ class Bank:
             json.dump(self.accounts, f, indent=4)
     
     def create_account(self, first_name, last_name, password, account_number, 
-                       account_id, balance, account_type):
-        # parola pula, vezi sa folosesti BankAccount, nu nenorocirea asta de obiect
+                       account_id, balance, account_type, creation_date):
         new_account = {
             "first_name": first_name,
             "last_name": last_name,
@@ -27,7 +26,15 @@ class Bank:
             "account_number": account_number,
             "account_id": account_id,
             "balance": balance,
-            "account_type": account_type
+            "account_type": account_type,
+            "creation_date": creation_date,
+            "currency_accounts": {
+                "EUR": {
+                    "account_id": account_id,
+                    "balance": balance,
+                    "created_at": creation_date
+                }
+            }
         }
         self.accounts.append(new_account)
         self.save_accounts()
@@ -38,6 +45,34 @@ class Bank:
             if account['account_id'] == id:
                 return account
         return False
+    
+    def add_new_currency_account(self, user_id, selected_currency, 
+                                 currency_account_number, 
+                                 balance, creation_date):
+        
+        user_account = self.get_account_by_id(user_id)
+
+        if not user_account:
+            return "Account does not exist."
+        if selected_currency in user_account["currency_accounts"]:
+            print("You already have this currency!")
+            return False
+        
+        # Add the new currency to account_types
+        user_account["account_type"].append(selected_currency)
+        
+        if "currency_accounts" not in user_account:
+            user_account["currency_accounts"] = {}
+            
+        user_account["currency_accounts"][selected_currency] = {
+        "account_id": currency_account_number,
+        "balance": balance,
+        "created_at": creation_date }
+        
+        self.save_accounts()
+        print("Success. New currency added." )
+        return True
+        
     
     # unele merg direct in bank_account sau vedem poate facem totul aici
     def find_account(self):
