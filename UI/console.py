@@ -80,7 +80,8 @@ def start_cli(bank):
             print(f"\nLogged in as: {current_user['first_name']} {current_user['last_name']}")
             print("\n1. User Data")
             print("2. Manage Account")
-            print("3. Logout")
+            print("3. Exchange Currencies")
+            print("4. Logout")
             print("0. Exit")
             
             choice = input("Select an option: ")
@@ -97,6 +98,9 @@ def start_cli(bank):
                 manage_account(current_user, bank)
                 
             elif choice == '3':
+                exchange_currencies(current_user, bank)
+                
+            elif choice == '4':
                 logged_in = False
                 current_user = None
                 print("Logged out successfully")
@@ -170,7 +174,6 @@ def switch_currency_account(current_user, bank):
                 selected_currency = available_currencies[choice_index]
                 # Add code here to actually switch the currency
                 bank.switch_currency(selected_currency, current_user)
-                current_user["account_type"] = selected_currency
                 print(f"Successfully switched to {selected_currency}!")
                 break
             else:
@@ -214,3 +217,115 @@ def display_user_currency_accounts(current_user):
     print("Your currency accounts:")
     for i, currency in enumerate(current_user["currency_accounts"], 1):
         print(f"{i}. {currency}")
+        
+def exchange_currencies(current_user, bank):
+    # Display current account info
+    current_currency = current_user['account_type']
+    current_balance = current_user['balance']
+    
+    print(f"\nYour current account is in {current_currency} and you have {current_balance:.2f} balance.")
+    
+    # Get available currencies except the current one
+    available_currencies = [currency for currency in current_user['currency_accounts'].keys() 
+                           if currency != current_currency]
+    
+    if not available_currencies:
+        print("You don't have any other currency accounts to exchange with.")
+        return
+    
+    # Display available currencies
+    print("Available currencies to exchange to:")
+    for i, currency in enumerate(available_currencies, 1):
+        print(f"{i}. {currency}")
+    print("0. Exit")
+    
+    # Get target currency choice from user
+    while True:
+        try:
+            choice = input("\nSelect the currency you want to exchange to (0 to exit): ")
+            
+            if choice == '0':
+                return
+                
+            choice_idx = int(choice) - 1
+            if 0 <= choice_idx < len(available_currencies):
+                target_currency = available_currencies[choice_idx]
+                break
+            else:
+                print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Please enter a number.")
+    
+    # Get amount to exchange
+    while True:
+        try:
+            if current_balance <= 0:
+                print("You don't have money.")
+                break
+            amount_str = input(f"\nHow much {current_currency} do you want to exchange to {target_currency}: ")
+            amount = float(amount_str)
+            
+            if amount <= 0:
+                print("Amount must be greater than zero.")
+                continue
+                
+            if amount > current_user['balance']:
+                print(f"Insufficient funds. Your {current_currency} balance is {current_balance:.2f}.")
+                continue
+                
+            break
+        except ValueError:
+            print("Please enter a valid number.")
+    
+    # Apply exchange rate (this is a simplified example)
+    # In a real application, you would use an API or database for current exchange rates
+    exchange_rates = {
+        'EUR_USD': 1.08,
+        'USD_EUR': 0.93,
+        'EUR_GBP': 0.85,
+        'GBP_EUR': 1.18,
+        'EUR_YEN': 163.50,
+        'YEN_EUR': 0.0061,
+        'USD_GBP': 0.79,
+        'GBP_USD': 1.27,
+        'USD_YEN': 151.40,
+        'YEN_USD': 0.0066,
+        'GBP_YEN': 192.35,
+        'YEN_GBP': 0.0052
+    }
+        
+    rate_key = f"{current_currency}_{target_currency}"
+    if rate_key in exchange_rates:
+        rate = exchange_rates[rate_key]
+    else:
+        # Fallback or reverse lookup
+        reverse_key = f"{target_currency}_{current_currency}"
+        if reverse_key in exchange_rates:
+            rate = 1 / exchange_rates[reverse_key]
+        else:
+            print(f"Exchange rate for {current_currency} to {target_currency} not available.")
+            return
+    
+    converted_amount = amount * rate
+    
+    # Confirm exchange
+    print(f"\n{amount:.2f} {current_currency} is {converted_amount:.2f} {target_currency}.")
+    print("Do you want to exchange?")
+    print("1. Yes")
+    print("2. No")
+    print("0. Exit")
+    
+    confirm = input("Your choice: ")
+    
+    if confirm == '1':
+        # Process exchange
+        bank.exchange_currency(current_user, amount, current_currency, 
+                               target_currency, converted_amount)
+        
+        print(f"\nExchange successful!")
+        print(f"New {current_currency} balance: {current_user['balance']:.2f}")
+        print(f"New {target_currency} balance: {current_user['currency_accounts'][target_currency]['balance']:.2f}")
+    elif confirm == '2':
+        print("Exchange cancelled.")
+    else:
+        print("Returning to previous menu.")

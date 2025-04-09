@@ -71,9 +71,20 @@ class Bank:
         return True
     
     def switch_currency(self, selected_currency, user_account):
+        selected_account = user_account["currency_accounts"][selected_currency]
         user_account["account_type"] = selected_currency
+        user_account["balance"] = selected_account["balance"]
+        user_account["creation_date"] = selected_account["created_at"]
         self.save_accounts()
         return True
+    
+    def exchange_currency(self, user_account, amount, current_currency, 
+                          target_currency, converted_amount):
+        user_account["balance"] -= amount
+        user_account["currency_accounts"][current_currency]["balance"] -= amount
+        user_account["currency_accounts"][target_currency]["balance"] += converted_amount
+        self.save_accounts()
+        return True;
         
     
     # unele merg direct in bank_account sau vedem poate facem totul aici
