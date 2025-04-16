@@ -7,7 +7,7 @@ account_type = 'EUR'
 friends = []
 transactions = []
 
-def start_cli(bank):
+def start_cli(bank, transactions):
     logged_in = False
     current_user = None
     
@@ -107,7 +107,7 @@ def start_cli(bank):
                 exchange_currencies(current_user, bank)
                 
             elif choice == '4':
-                pass
+                manage_transactions(current_user, transactions)
             
             elif choice == '5':
                 manage_friends(current_user, bank)
@@ -490,5 +490,67 @@ def manage_friends(current_user, bank):
             print("Exiting Friend Manager.")
             break
 
+        else:
+            print("Invalid choice. Please try again.")
+
+def manage_transactions(user_account, transactions):
+    while True:
+        print("\n--- Transactions Menu ---")
+        print("1. Add Money")
+        print("2. Withdraw")
+        print("3. Transfer")
+        print("4. Show Transactions")
+        print("5. Find Transaction")
+        print("0. Go Back")
+
+        choice = input("Choose an option: ")
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if choice == "1":
+            amount = float(input("Enter amount to add (max 2k): "))
+            if amount >= 2000:
+                print('You added too much. Bye!')
+                continue
+            transactions.add_money(user_account, amount, date)
+        elif choice == "2":
+            amount = float(input("Enter amount to withdraw: "))
+            if amount > user_account["balance"]:
+                print("❌ Insufficient funds.")
+                break
+            transactions.withdraw(user_account, amount, date)
+        elif choice == "3":
+            to_id = input("Enter recipient account ID: ")
+            amount = float(input("Enter amount to transfer: "))
+            transactions.transfer(user_account["id"], to_id, amount)
+        # Inside option 4 (Show Transactions):
+        elif choice == "4":
+            transactions = user_account.get("transactions", [])
+
+            if not transactions:
+                print("No transactions found.")
+            else:
+                # Header
+                print("\n📄 Transaction History:\n")
+                print(f"{'No.':<5} {'ID':<5} {'Type':<10} {'Amount':<10} {'Currency':<10} {'Date':<10}")
+                print("-" * 65)  # Separator line
+
+                # Loop through transactions and print each row
+                for i, tx in enumerate(transactions, start=1):
+                    tx_type = tx.get("type", "-")
+                    amount = tx.get("amount", "-")
+                    currency = tx.get("currency", "-")
+                    date = tx.get("date", tx.get("timestamp", "-"))
+                    account_id = tx.get("account_id", "-")
+                    index = f"{i}."
+                    print(f"{index:<5} {account_id:<5} {tx_type:<10} {amount:<10} {currency:<10} {date:<10}")
+
+                print("-" * 65)  # End separator line
+
+        elif choice == "5":
+            keyword = input("Enter id to search: ")
+            matches = [tx for tx in user_account.get("transactions", []) if keyword in str(tx)]
+            for m in matches:
+                print(m)
+        elif choice == "0":
+            break
         else:
             print("Invalid choice. Please try again.")

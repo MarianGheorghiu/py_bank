@@ -1,4 +1,6 @@
+from bank_core.transactions import Transactions
 from config import db_path
+
 import json
 import os
 
@@ -6,6 +8,7 @@ class Bank:
     def __init__(self, accounts_file=db_path):
         self.accounts_file = accounts_file
         self.accounts = self.load_accounts()
+        self.transactions = Transactions(self)
         
     def load_accounts(self):
         if os.path.exists(self.accounts_file):
@@ -129,13 +132,8 @@ class Bank:
         user_account["friends"][friend_index]["balance"] += amount
         
         # add in transactions history
-        user_account["transactions"].append({
-            "type": "friend_transfer",
-            "amount": amount,
-            "currency": currency,
-            "friend_id": friend_id,
-            "transfered_at": date
-        })
+        self.transactions.record_friend_transfer(user_account, friend_id,
+                                                 amount, currency, date)
         
         self.save_accounts()
         return True
