@@ -5,18 +5,18 @@
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
         "account_number": "ccd5bc15-c62f-41e7-8ade-ee25b3b6f0c0",
         "account_id": "2769",
-        "balance": 130.0,
+        "balance": 230.0,
         "account_type": "EUR",
         "creation_date": "2025-04-15 14:52:43",
         "currency_accounts": {
             "EUR": {
                 "account_id": "2769",
-                "balance": 130.0,
+                "balance": 50.0,
                 "created_at": "2025-04-15 14:52:43"
             },
             "USD": {
                 "account_id": "2576",
-                "balance": 0.0,
+                "balance": 201.6,
                 "created_at": "2025-04-15 18:19:16"
             }
         },
@@ -42,6 +42,68 @@
                 "amount": 20.0,
                 "currency": "EUR",
                 "date": "2025-04-16 10:22:28"
+            },
+            {
+                "type": "transfer_out",
+                "account_id": "2769",
+                "transfer_to": "1015",
+                "amount": 20.0,
+                "currency": "EUR",
+                "date": "2025-04-16 17:12:20"
+            },
+            {
+                "type": "deposit",
+                "account_id": "2769",
+                "amount": 20.0,
+                "currency": "EUR",
+                "date": "2025-04-16 17:18:15"
+            },
+            {
+                "type": "deposit",
+                "account_id": "2769",
+                "amount": 200.0,
+                "currency": "EUR",
+                "date": "2025-04-16 17:18:24"
+            },
+            {
+                "type": "witdraw",
+                "account_id": "2769",
+                "amount": 200.0,
+                "currency": "EUR",
+                "date": "2025-04-16 17:18:44"
+            }
+        ]
+    },
+    {
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "account_number": "0ec981c9-83b1-494b-a0df-e6b6356b87f0",
+        "account_id": "1015",
+        "balance": 60.0,
+        "account_type": "EUR",
+        "creation_date": "2025-04-16 15:23:39",
+        "currency_accounts": {
+            "EUR": {
+                "account_id": "1015",
+                "balance": 40.0,
+                "created_at": "2025-04-16 15:23:39"
+            },
+            "USD": {
+                "account_id": "2120",
+                "balance": 20.0,
+                "created_at": "2025-04-16 15:48:56"
+            }
+        },
+        "friends": [],
+        "transactions": [
+            {
+                "type": "transfer_in",
+                "account_id": "1015",
+                "received_from": "2769",
+                "amount": 20.0,
+                "currency": "EUR",
+                "date": "2025-04-16 17:12:20"
             }
         ]
     }

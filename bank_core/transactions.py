@@ -41,8 +41,48 @@ class Transactions:
         self.bank.save_accounts()
         print(f"✅ Withdrawn {amount} {account['account_type']} from your account.")
 
-    def transfer(self, from_account_id, to_account_id, amount):
-        pass  # Logic will go here
+    def transfer(self, account_id, to_account_id, amount, 
+                 selected_currency, date):
+        account = None
+        to_account = None
+        # update users to correct saving
+        for acc in self.bank.accounts:
+            if acc["account_id"] == account_id:
+                account = acc
+            if acc["account_id"] == to_account_id:
+                to_account = acc
+        # update user balance
+        account["balance"] -= amount
+        account["currency_accounts"][selected_currency]["balance"] -= amount
+        # update transfered money
+        to_account["balance"] += amount
+        to_account["currency_accounts"][selected_currency]["balance"] += amount
+        
+        # update sender transaction
+        sender_transaction = {
+            "type": "transfer_out",
+            "account_id": account_id,
+            "transfer_to": to_account_id,
+            "amount": amount,
+            "currency": selected_currency,
+            "date": date
+        }
+        
+        receiver_transaction = {
+            "type": "transfer_in",
+            "account_id": to_account_id,
+            "received_from": account_id,
+            "amount": amount,
+            "currency": selected_currency,
+            "date": date
+        }
+        # save transactions
+        account["transactions"].append(sender_transaction)
+        to_account["transactions"].append(receiver_transaction)
+        
+        # update database
+        self.bank.save_accounts()
+        print(f"✅ Transfered from {account["account_id"]} to {to_account["account_id"]}.")
 
     def get_balance(self, account_id):
         pass  # Logic will go here

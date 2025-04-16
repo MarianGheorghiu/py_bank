@@ -1,11 +1,12 @@
 import uuid
 import datetime
+import json
 from utils import hash_password, check_password
 
 # Setam EURO by default
 account_type = 'EUR'
 friends = []
-transactions = []
+acc_transactions = []
 
 def start_cli(bank, transactions):
     logged_in = False
@@ -46,7 +47,7 @@ def start_cli(bank, transactions):
                 new_account = bank.create_account(first_name, last_name, hash_password(password),
                                                   account_number,account_id, balance,
                                                   account_type, creation_date, 
-                                                  friends, transactions)
+                                                  friends, acc_transactions)
                 print(f"Account created successfully!")
                 print(f"Your Name: {first_name} {last_name}")
                 print(f"Your account number: {account_number}")
@@ -505,23 +506,81 @@ def manage_transactions(user_account, transactions):
 
         choice = input("Choose an option: ")
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
         if choice == "1":
             amount = float(input("Enter amount to add (max 2k): "))
             if amount >= 2000:
                 print('You added too much. Bye!')
                 continue
             transactions.add_money(user_account, amount, date)
+            
         elif choice == "2":
             amount = float(input("Enter amount to withdraw: "))
             if amount > user_account["balance"]:
                 print("❌ Insufficient funds.")
                 break
             transactions.withdraw(user_account, amount, date)
+            
         elif choice == "3":
             to_id = input("Enter recipient account ID: ")
-            amount = float(input("Enter amount to transfer: "))
-            transactions.transfer(user_account["id"], to_id, amount)
-        # Inside option 4 (Show Transactions):
+            
+            with open('bank_data/accounts.json', 'r') as file:
+                users_data = json.load(file)
+    
+            # Check if recipient exists
+            recipient = None
+            for user in users_data:
+                if user["account_id"] == to_id:
+                    recipient = user
+                    break
+            
+            if not recipient:
+                print(f"Error: Recipient with account ID {to_id} not found.")
+                return
+            
+            # Display available currencies for the recipient
+            print(f"\nRecipient {recipient['first_name']} {recipient['last_name']} can accept:")
+            available_currencies = list(recipient["currency_accounts"].keys())
+            for i, currency in enumerate(available_currencies, 1):
+                print(f"{i}. {currency}")
+            
+            # Let user select currency
+            currency_choice = int(input("\nSelect currency to transfer (number): ")) - 1
+            if currency_choice < 0 or currency_choice >= len(available_currencies):
+                print("Invalid selection.")
+                return
+            
+            selected_currency = available_currencies[currency_choice]
+            
+            # Check if sender has this currency account
+            if selected_currency not in user_account["currency_accounts"]:
+                print(f"You don't have a {selected_currency} account to transfer from.")
+                return
+            
+            # Get transfer amount
+            amount = float(input(f"Enter amount to transfer in {selected_currency}: "))
+            
+            # Check sufficient funds
+            sender_balance = user_account["currency_accounts"][selected_currency]["balance"]
+            has_enough = sender_balance - amount
+            if has_enough < amount:
+                print(f"Insufficient funds. {has_enough} after transfer.")
+                return
+            
+            # Confirm transfer
+            print(f"\nTransfer summary:")
+            print(f"Sending {amount} {selected_currency} to {recipient['account_id']}")
+            print(f"Your balance after transfer will be {has_enough} {selected_currency}")
+            confirm = input("Confirm transfer (y/n): ").lower()
+            
+            if confirm != 'y':
+                print("Transfer cancelled.")
+                return
+            
+            transactions.transfer(user_account['account_id'], to_id, amount, 
+                                  selected_currency, date)
+            
+                
         elif choice == "4":
             transactions = user_account.get("transactions", [])
 
@@ -530,8 +589,8 @@ def manage_transactions(user_account, transactions):
             else:
                 # Header
                 print("\n📄 Transaction History:\n")
-                print(f"{'No.':<5} {'ID':<5} {'Type':<10} {'Amount':<10} {'Currency':<10} {'Date':<10}")
-                print("-" * 65)  # Separator line
+                print(f"{'No.':<5} {'ID':<5} {'Type':<15} {'Amount':<10} {'Currency':<10} {'Date':<10}")
+                print("-" * 70)  # Separator line
 
                 # Loop through transactions and print each row
                 for i, tx in enumerate(transactions, start=1):
@@ -541,16 +600,18 @@ def manage_transactions(user_account, transactions):
                     date = tx.get("date", tx.get("timestamp", "-"))
                     account_id = tx.get("account_id", "-")
                     index = f"{i}."
-                    print(f"{index:<5} {account_id:<5} {tx_type:<10} {amount:<10} {currency:<10} {date:<10}")
+                    print(f"{index:<5} {account_id:<5} {tx_type:<15} {amount:<10} {currency:<10} {date:<10}")
 
-                print("-" * 65)  # End separator line
+                print("-" * 70)  # End separator line
 
         elif choice == "5":
-            keyword = input("Enter id to search: ")
+            keyword = input("Enter id/type/etc. to search: ")
             matches = [tx for tx in user_account.get("transactions", []) if keyword in str(tx)]
             for m in matches:
                 print(m)
+                
         elif choice == "0":
             break
+        
         else:
             print("Invalid choice. Please try again.")
