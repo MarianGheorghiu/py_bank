@@ -114,7 +114,7 @@ def start_cli(bank, transactions):
                 manage_friends(current_user, bank)
                 
             elif choice == '6':
-                pass
+                manage_settings(current_user, bank)
                 
             elif choice == '7':
                 logged_in = False
@@ -253,7 +253,7 @@ def exchange_currencies(current_user, bank):
     print("Available currencies to exchange to:")
     for i, currency in enumerate(available_currencies, 1):
         print(f"{i}. {currency}")
-    print("0. Exit")
+    print("0. Go back")
     
     # Get target currency choice from user
     while True:
@@ -329,7 +329,7 @@ def exchange_currencies(current_user, bank):
     print("Do you want to exchange?")
     print("1. Yes")
     print("2. No")
-    print("0. Exit")
+    print("0. Abort")
     
     confirm = input("Your choice: ")
     
@@ -353,7 +353,7 @@ def manage_friends(current_user, bank):
         print("2. Find Friend")
         print("3. Remove Friend")
         print("4. Show All Friends")
-        print("5. Send Money to a Friend")  # Placeholder for later
+        print("5. Send Money to a Friend") 
         print("0. Go back")
 
         choice = input("Choose an option: ")
@@ -615,3 +615,6 @@ def manage_transactions(user_account, transactions):
         
         else:
             print("Invalid choice. Please try again.")
+
+def manage_settings(user_account, bank):
+    pass

@@ -11,7 +11,7 @@ class Transactions:
     def add_money(self, account, amount, date):
         account["balance"] += amount
         currency = account['account_type']
-        account['currency_accounts'][currency]['balance'] += amount
+        account['currency_accounts'][currency]['balance'] = account["balance"]
 
         transaction = {
             "type": "deposit",
@@ -27,7 +27,7 @@ class Transactions:
     def withdraw(self, account, amount, date):
         account["balance"] -= amount
         currency = account['account_type']
-        account['currency_accounts'][currency]['balance'] -= amount
+        account['currency_accounts'][currency]['balance'] = account["balance"]
         
         transaction = {
             "type": "witdraw",
@@ -53,10 +53,10 @@ class Transactions:
                 to_account = acc
         # update user balance
         account["balance"] -= amount
-        account["currency_accounts"][selected_currency]["balance"] -= amount
+        account["currency_accounts"][selected_currency]["balance"] = account["balance"]
         # update transfered money
         to_account["balance"] += amount
-        to_account["currency_accounts"][selected_currency]["balance"] += amount
+        to_account["currency_accounts"][selected_currency]["balance"] = to_account["balance"]
         
         # update sender transaction
         sender_transaction = {

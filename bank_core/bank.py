@@ -87,7 +87,7 @@ class Bank:
     def exchange_currency(self, user_account, amount, current_currency, 
                           target_currency, converted_amount):
         user_account["balance"] -= amount
-        user_account["currency_accounts"][current_currency]["balance"] -= amount
+        user_account["currency_accounts"][current_currency]["balance"] = user_account["balance"]
         user_account["currency_accounts"][target_currency]["balance"] += converted_amount
         self.save_accounts()
         return True
@@ -128,7 +128,7 @@ class Bank:
             return False
         # update all balances
         user_account["balance"] -= amount
-        user_account["currency_accounts"][currency]["balance"] -= amount
+        user_account["currency_accounts"][currency]["balance"] = user_account["balance"]
         user_account["friends"][friend_index]["balance"] += amount
         
         # add in transactions history
@@ -139,7 +139,7 @@ class Bank:
         return True
         
     
-    def close_account(self):
+    def close_account(self, account):
         pass
     
     def apply_loan(self):
