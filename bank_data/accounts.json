@@ -5,13 +5,13 @@
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
         "account_number": "ccd5bc15-c62f-41e7-8ade-ee25b3b6f0c0",
         "account_id": "2769",
-        "balance": 367.2,
+        "balance": 359.2,
         "account_type": "USD",
         "creation_date": "2025-04-15 18:19:16",
         "currency_accounts": {
             "EUR": {
                 "account_id": "2769",
-                "balance": 190.0,
+                "balance": 359.2,
                 "created_at": "2025-04-15 14:52:43"
             },
             "USD": {
@@ -30,7 +30,7 @@
             {
                 "account_id": "1122",
                 "account_type": "EUR",
-                "balance": 100.0
+                "balance": 108.0
             },
             "5566",
             {
@@ -40,115 +40,6 @@
             }
         ],
         "transactions": [
-            {
-                "type": "deposit",
-                "account_id": "2769",
-                "amount": 20.0,
-                "currency": "EUR",
-                "date": "2025-04-16 10:15:59"
-            },
-            {
-                "type": "witdraw",
-                "account_id": "2769",
-                "amount": 20.0,
-                "currency": "EUR",
-                "date": "2025-04-16 10:22:28"
-            },
-            {
-                "type": "transfer_out",
-                "account_id": "2769",
-                "transfer_to": "1015",
-                "amount": 20.0,
-                "currency": "EUR",
-                "date": "2025-04-16 17:12:20"
-            },
-            {
-                "type": "deposit",
-                "account_id": "2769",
-                "amount": 20.0,
-                "currency": "EUR",
-                "date": "2025-04-16 17:18:15"
-            },
-            {
-                "type": "deposit",
-                "account_id": "2769",
-                "amount": 200.0,
-                "currency": "EUR",
-                "date": "2025-04-16 17:18:24"
-            },
-            {
-                "type": "witdraw",
-                "account_id": "2769",
-                "amount": 200.0,
-                "currency": "EUR",
-                "date": "2025-04-16 17:18:44"
-            },
-            {
-                "type": "transfer_out",
-                "account_id": "2769",
-                "transfer_to": "1015",
-                "amount": 10.0,
-                "currency": "USD",
-                "date": "2025-04-16 20:09:52"
-            },
-            {
-                "type": "deposit",
-                "account_id": "2769",
-                "amount": 200.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:32:24"
-            },
-            {
-                "type": "witdraw",
-                "account_id": "2769",
-                "amount": 200.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:32:34"
-            },
-            {
-                "type": "transfer_out",
-                "account_id": "2769",
-                "transfer_to": "1015",
-                "amount": 20.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:32:40"
-            },
-            {
-                "type": "transfer_out",
-                "account_id": "2769",
-                "transfer_to": "1015",
-                "amount": 10.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:34:18"
-            },
-            {
-                "type": "friend_transfer",
-                "id": "1122",
-                "amount": 10.0,
-                "currency": "EUR",
-                "transfered_at": "2025-04-18 11:35:14"
-            },
-            {
-                "type": "friend_transfer",
-                "id": "1122",
-                "amount": 10.0,
-                "currency": "EUR",
-                "transfered_at": "2025-04-18 11:35:43"
-            },
-            {
-                "type": "friend_transfer",
-                "id": "1122",
-                "amount": 10.0,
-                "currency": "EUR",
-                "transfered_at": "2025-04-18 11:36:26"
-            },
-            {
-                "type": "deposit",
-                "account_id": "2769",
-                "amount": 100.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:37:28"
-            },
             {
                 "type": "deposit",
                 "account_id": "2769",
@@ -163,6 +54,13 @@
                 "amount": 100.0,
                 "currency": "USD",
                 "date": "2025-04-18 11:38:11"
+            },
+            {
+                "type": "friend_transfer",
+                "account_id": "1122",
+                "amount": 1.0,
+                "currency": "EUR",
+                "date": "2025-06-02 11:40:17"
             }
         ]
     },

@@ -22,6 +22,7 @@ def start_cli(bank, transactions):
             choice = input("Select an option: ")
             
             if choice == '1':
+                # add e-mail
                 first_name = input("First Name: ")
                 last_name = input("Last Name: ")
                 password = input("Password (min. 4 chars): ")
@@ -82,36 +83,31 @@ def start_cli(bank, transactions):
         else:
              # Meniul pentru utilizatori autentificați
             print(f"\nLogged in as: {current_user['first_name']} {current_user['last_name']}")
-            print("\n1. User Data")
-            print("2. Manage Account")
-            print("3. Exchange Currencies")
-            print("4. Transactions")
-            print("5. Friends")
+            print("\n1. Manage Account")
+            print("2. Exchange Currencies")
+            print("3. Transactions")
+            print("4. Friends")
+            print ("5. Loans")
             print("6. Settings")
             print("7. Logout")
             print("0. Exit")
             
             choice = input("Select an option: ")
-            
-            if choice == '1':
-                print("\nUser Data:")
-                print(f"Name: {current_user['first_name']} {current_user['last_name']}")
-                print(f"Account Number: {current_user['account_number']}")
-                print(f"Account ID: {current_user['account_id']}")
-                print(f"Balance: {current_user['balance']}")
-                print(f"Account type: {current_user['account_type']}")
                 
-            elif choice == '2':
+            if choice == '1':
                 manage_account(current_user, bank)
                 
-            elif choice == '3':
+            elif choice == '2':
                 exchange_currencies(current_user, bank)
                 
-            elif choice == '4':
+            elif choice == '3':
                 manage_transactions(current_user, transactions)
             
-            elif choice == '5':
+            elif choice == '4':
                 manage_friends(current_user, bank)
+                
+            elif choice == '5':
+                manange_loans(current_user, bank)
                 
             elif choice == '6':
                 manage_settings(current_user, bank)
@@ -128,7 +124,7 @@ def start_cli(bank, transactions):
 def manage_account(current_user, bank):
     while True:
             print("\nManage Account:")
-            print("1. Show your current account")
+            print("1. Account info")
             print("2. Add new currency")
             print("3. Switch currency")
             print("4. Show currencies")
@@ -137,11 +133,13 @@ def manage_account(current_user, bank):
             account_choice = input("Select an option: ")
             
             if account_choice == '1':
-                print("\nCurrent Account Details:")
+                print("\n---Account Details---")
+                print(f"Name: {current_user['first_name']} {current_user['last_name']}")
                 print(f"Account Number: {current_user['account_number']}")
                 print(f"Account ID: {current_user['account_id']}")
+                print(f"Currency: {current_user['account_type']}")
                 print(f"Balance: {current_user['balance']}")
-                print(f"Account types: {current_user['account_type']}")
+                print(f"Registered at: {current_user['creation_date']}")
                 
             elif account_choice == '2':
                 add_new_currency(current_user, bank)    
@@ -616,5 +614,11 @@ def manage_transactions(user_account, transactions):
         else:
             print("Invalid choice. Please try again.")
 
+def manange_loans(current_account, bank):
+    pass
+
 def manage_settings(user_account, bank):
+    # change first name, last name - remember 1 change for 1 month, close account
+    # if user has loan, dont allow to close account
+    # change password, add phone number
     pass

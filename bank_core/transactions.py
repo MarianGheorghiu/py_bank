@@ -90,9 +90,9 @@ class Transactions:
     def record_friend_transfer(self, user_account, friend_id, amount, currency, date):
         transaction = {
             "type": "friend_transfer",
-            "id": friend_id,
+            "account_id": friend_id,
             "amount": amount,
             "currency": currency,
-            "transfered_at": date
+            "date": date
         }
         user_account["transactions"].append(transaction)
