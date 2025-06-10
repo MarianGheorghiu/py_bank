@@ -142,8 +142,28 @@ class Bank:
     def close_account(self, account):
         pass
     
-    def apply_loan(self):
-        pass
+    def apply_loan(self, user_account, loan_record, req_amount):
+        if "loans" not in user_account:
+            user_account["loans"] = []
+        user_account["loans"].append(loan_record)
+        user_account["balance"] += req_amount
+        self.save_accounts()
+        
+    def pay_loan(self, user_account, selected_loan, payment_amount):
+         # Process payment
+        user_account["balance"] -= payment_amount
+        selected_loan["remaining_balance"] -= payment_amount
+        selected_loan["total_payments"] += 1
+        
+        # Check if loan is paid off
+        if selected_loan["remaining_balance"] <= 0:
+            selected_loan["status"] = "paid_off"
+            print(f"🎉 Congratulations! Your {selected_loan['type']} has been paid off!")
+        else:
+            print(f"Payment successful! Remaining balance: {selected_loan['remaining_balance']:.2f} {selected_loan['currency']}")
+        
+        self.save_accounts()
+        
         
 # Afiseaza banii din toate conturile
 # 

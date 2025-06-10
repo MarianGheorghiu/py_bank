@@ -5,7 +5,7 @@
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
         "account_number": "ccd5bc15-c62f-41e7-8ade-ee25b3b6f0c0",
         "account_id": "2769",
-        "balance": 359.2,
+        "balance": 669.2,
         "account_type": "USD",
         "creation_date": "2025-04-15 18:19:16",
         "currency_accounts": {
@@ -16,12 +16,12 @@
             },
             "USD": {
                 "account_id": "2576",
-                "balance": 367.2,
+                "balance": 339.2,
                 "created_at": "2025-04-15 18:19:16"
             },
             "YEN": {
                 "account_id": "2255",
-                "balance": 0.0,
+                "balance": 3028.0,
                 "created_at": "2025-04-16 19:44:46"
             }
         },
@@ -61,6 +61,21 @@
                 "amount": 1.0,
                 "currency": "EUR",
                 "date": "2025-06-02 11:40:17"
+            }
+        ],
+        "loans": [
+            {
+                "loan_id": "LOAN0001",
+                "type": "Business Loan",
+                "amount": 400.0,
+                "currency": "USD",
+                "interest_rate": 6.8,
+                "term_years": 10,
+                "monthly_payment": 4.603213207284478,
+                "remaining_balance": 330.0,
+                "total_payments": 2,
+                "created_date": "2025-06-10 16:09:58",
+                "status": "active"
             }
         ]
     },
