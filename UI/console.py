@@ -178,7 +178,7 @@ def manage_transactions(user_account, transactions):
         
         if choice == "1":
             amount = float(input("Enter amount to add (max 2k): "))
-            if amount >= 2000:
+            if amount >= 2001:
                 print('You added too much. Bye!')
                 continue
             transactions.add_money(user_account, amount, date)

@@ -5,13 +5,13 @@
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
         "account_number": "a21a7f54-173a-46d8-a053-172935c45c95",
         "account_id": "1295",
-        "balance": 390.0,
+        "balance": 440.0,
         "account_type": "EUR",
         "creation_date": "2025-06-11 16:45:00",
         "currency_accounts": {
             "EUR": {
                 "account_id": "1295",
-                "balance": 390.0,
+                "balance": 440.0,
                 "created_at": "2025-06-11 16:45:00"
             },
             "USD": {
@@ -72,6 +72,14 @@
                 "amount": 10.0,
                 "currency": "EUR",
                 "date": "2025-06-11 16:49:06"
+            },
+            {
+                "type": "transfer_in",
+                "account_id": "1295",
+                "received_from": "1526",
+                "amount": 20.0,
+                "currency": "EUR",
+                "date": "2025-06-11 17:46:18"
             }
         ],
         "loans": [
