@@ -67,19 +67,24 @@ The CLI Banking App allows users to create and manage accounts, handle multiple 
     ```bash
     git clone https://github.com/MarianGheorghiu/py_bank.git
     cd py_bank
-
     ```
 
-2. chmod +x start.sh
+2. ```bash
+   chmod +x start.sh
+   ```
 
-3. ./start.sh
+3. ```bash
+   ./start.sh
+   ```
 
-🔧 Requirements
-Python 3.7+
+## 🔧 Requirements
+
+### Python 3.7+
 
 No external libraries required (uses standard library only)
 
-🧪 Example Use Cases
+## 🧪 Example Use Cases
+
 Register a new user and add multiple currencies.
 
 Exchange EUR to USD based on available balances.
@@ -92,5 +97,6 @@ View and search your transaction history.
 
 Modify account details or close the account entirely.
 
-📌 Disclaimer
+## 📌 Disclaimer
+
 This is a demo application built for learning purposes. It does not implement real-world banking protocols, security encryption, or persistent storage mechanisms suitable for production use.
