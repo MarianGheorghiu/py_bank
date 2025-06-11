@@ -40,7 +40,8 @@ class Bank:
                 }
             },
             "friends": friends,
-            "transactions": transactions
+            "transactions": transactions,
+            "loans": []
         }
         self.accounts.append(new_account)
         self.save_accounts()

@@ -3,144 +3,90 @@
         "first_name": "John",
         "last_name": "Doe",
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "account_number": "ccd5bc15-c62f-41e7-8ade-ee25b3b6f0c0",
-        "account_id": "2769",
-        "balance": 669.2,
-        "account_type": "USD",
-        "creation_date": "2025-04-15 18:19:16",
+        "account_number": "a21a7f54-173a-46d8-a053-172935c45c95",
+        "account_id": "1295",
+        "balance": 390.0,
+        "account_type": "EUR",
+        "creation_date": "2025-06-11 16:45:00",
         "currency_accounts": {
             "EUR": {
-                "account_id": "2769",
-                "balance": 359.2,
-                "created_at": "2025-04-15 14:52:43"
+                "account_id": "1295",
+                "balance": 390.0,
+                "created_at": "2025-06-11 16:45:00"
             },
             "USD": {
-                "account_id": "2576",
-                "balance": 339.2,
-                "created_at": "2025-04-15 18:19:16"
-            },
-            "YEN": {
-                "account_id": "2255",
-                "balance": 3028.0,
-                "created_at": "2025-04-16 19:44:46"
+                "account_id": "2777",
+                "balance": 21.6,
+                "created_at": "2025-06-11 16:48:00"
             }
         },
         "friends": [
-            "1122",
+            "2222",
             {
-                "account_id": "1122",
+                "account_id": "2222",
                 "account_type": "EUR",
-                "balance": 108.0
-            },
-            "5566",
-            {
-                "account_id": "5566",
-                "account_type": "EUR",
-                "balance": 0.0
+                "balance": 40.0
             }
         ],
         "transactions": [
             {
                 "type": "deposit",
-                "account_id": "2769",
-                "amount": 200.0,
-                "currency": "USD",
-                "date": "2025-04-18 11:38:00"
+                "account_id": "1295",
+                "amount": 500.0,
+                "currency": "EUR",
+                "date": "2025-06-11 16:45:23"
             },
             {
-                "type": "transfer_out",
-                "account_id": "2769",
-                "transfer_to": "1015",
-                "amount": 100.0,
-                "currency": "USD",
-                "date": "2025-04-18 11:38:11"
+                "type": "witdraw",
+                "account_id": "1295",
+                "amount": 50.0,
+                "currency": "EUR",
+                "date": "2025-06-11 16:45:40"
             },
             {
                 "type": "friend_transfer",
-                "account_id": "1122",
-                "amount": 1.0,
+                "account_id": "2222",
+                "amount": 20.0,
                 "currency": "EUR",
-                "date": "2025-06-02 11:40:17"
+                "date": "2025-06-11 16:46:32"
+            },
+            {
+                "type": "friend_transfer",
+                "account_id": "2222",
+                "amount": 20.0,
+                "currency": "EUR",
+                "date": "2025-06-11 16:48:51"
+            },
+            {
+                "type": "transfer_out",
+                "account_id": "1295",
+                "transfer_to": "1295",
+                "amount": 10.0,
+                "currency": "EUR",
+                "date": "2025-06-11 16:49:06"
+            },
+            {
+                "type": "transfer_in",
+                "account_id": "1295",
+                "received_from": "1295",
+                "amount": 10.0,
+                "currency": "EUR",
+                "date": "2025-06-11 16:49:06"
             }
         ],
         "loans": [
             {
                 "loan_id": "LOAN0001",
-                "type": "Business Loan",
-                "amount": 400.0,
-                "currency": "USD",
-                "interest_rate": 6.8,
-                "term_years": 10,
-                "monthly_payment": 4.603213207284478,
-                "remaining_balance": 330.0,
-                "total_payments": 2,
-                "created_date": "2025-06-10 16:09:58",
-                "status": "active"
-            }
-        ]
-    },
-    {
-        "first_name": "Jane",
-        "last_name": "Doe",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "account_number": "0ec981c9-83b1-494b-a0df-e6b6356b87f0",
-        "account_id": "1015",
-        "balance": 200.0,
-        "account_type": "EUR",
-        "creation_date": "2025-04-16 15:23:39",
-        "currency_accounts": {
-            "EUR": {
-                "account_id": "1015",
-                "balance": 100.0,
-                "created_at": "2025-04-16 15:23:39"
-            },
-            "USD": {
-                "account_id": "2120",
-                "balance": 200.0,
-                "created_at": "2025-04-16 15:48:56"
-            }
-        },
-        "friends": [],
-        "transactions": [
-            {
-                "type": "transfer_in",
-                "account_id": "1015",
-                "received_from": "2769",
-                "amount": 20.0,
+                "type": "Home Loan",
+                "amount": 300.0,
                 "currency": "EUR",
-                "date": "2025-04-16 17:12:20"
-            },
-            {
-                "type": "transfer_in",
-                "account_id": "1015",
-                "received_from": "2769",
-                "amount": 10.0,
-                "currency": "USD",
-                "date": "2025-04-16 20:09:52"
-            },
-            {
-                "type": "transfer_in",
-                "account_id": "1015",
-                "received_from": "2769",
-                "amount": 20.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:32:40"
-            },
-            {
-                "type": "transfer_in",
-                "account_id": "1015",
-                "received_from": "2769",
-                "amount": 10.0,
-                "currency": "EUR",
-                "date": "2025-04-18 11:34:18"
-            },
-            {
-                "type": "transfer_in",
-                "account_id": "1015",
-                "received_from": "2769",
-                "amount": 100.0,
-                "currency": "USD",
-                "date": "2025-04-18 11:38:11"
+                "interest_rate": 3.5,
+                "term_years": 30,
+                "monthly_payment": 1.3471340634264704,
+                "remaining_balance": 0.0,
+                "total_payments": 1,
+                "created_date": "2025-06-11 16:53:51",
+                "status": "paid_off"
             }
         ]
     }
